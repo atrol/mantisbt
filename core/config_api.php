@@ -40,7 +40,6 @@ require_api( 'utility_api.php' );
 
 # cache for config variables
 $g_cache_config = array();
-$g_cache_config_eval = array();
 $g_cache_config_access = array();
 $g_cache_bypass_lookup = array();
 $g_cache_filled = false;
@@ -174,7 +173,7 @@ function config_get( $p_option, $p_default = null, $p_user = null, $p_project = 
 							break;
 						case CONFIG_TYPE_STRING:
 						default:
-							$t_value = config_eval( $t_raw_value );
+							$t_value = $t_raw_value;
 					}
 					return $t_value;
 				}
@@ -192,15 +191,8 @@ function config_get( $p_option, $p_default = null, $p_user = null, $p_project = 
  * @return string
  */
 function config_get_global( $p_option, $p_default = null ) {
-	global $g_cache_config_eval;
 	if( isset( $GLOBALS['g_' . $p_option] ) ) {
-		if( !isset( $g_cache_config_eval['g_' . $p_option] ) ) {
-			$t_value = config_eval( $GLOBALS['g_' . $p_option], true );
-			$g_cache_config_eval['g_' . $p_option] = $t_value;
-		} else {
-			$t_value = $g_cache_config_eval['g_' . $p_option];
-		}
-		return $t_value;
+		return $GLOBALS['g_' . $p_option];
 	} else {
 		# unless we were allowing for the option not to exist by passing
 		#  a default, trigger a WARNING
@@ -414,11 +406,9 @@ function config_set( $p_option, $p_value, $p_user = NO_USER, $p_project = ALL_PR
  * @return boolean
  */
 function config_set_global( $p_option, $p_value, $p_override = true ) {
-	global $g_cache_config_eval;
 
 	if( $p_override || !isset( $GLOBALS['g_' . $p_option] ) ) {
 		$GLOBALS['g_' . $p_option] = $p_value;
-		unset( $g_cache_config_eval['g_' . $p_option] );
 	}
 
 	return true;
@@ -560,11 +550,9 @@ function config_flush_cache( $p_option = '', $p_user = ALL_USERS, $p_project = A
 	if( '' !== $p_option ) {
 		unset( $GLOBALS['g_cache_config'][$p_option][$p_user][$p_project] );
 		unset( $GLOBALS['g_cache_config_access'][$p_option][$p_user][$p_project] );
-		unset( $GLOBALS['g_cache_config_eval'][$p_option] );
 	} else {
 		unset( $GLOBALS['g_cache_config'] );
 		unset( $GLOBALS['g_cache_config_access'] );
-		unset( $GLOBALS['g_cache_config_eval'] );
 		$g_cache_filled = false;
 	}
 }
@@ -638,45 +626,6 @@ function env_obsolete( $p_env_variable, $p_new_env_variable ) {
 		$t_info = 'please use ' . $p_new_env_variable . ' instead.';
 		check_print_test_warn_row( $t_description, false, $t_info );
 	}
-}
-
-/**
- * check for recursion in defining configuration variables
- * If there is a %text% in the returned value, re-evaluate the "text" part and replace the string
- *
- * @param string  $p_value  Configuration variable to evaluate.
- * @param boolean $p_global If true, gets %text% as a global configuration, defaults to false.
- * @return string
- */
-function config_eval( $p_value, $p_global = false ) {
-	$t_value = $p_value;
-	if( !empty( $t_value ) && is_string( $t_value ) && !is_numeric( $t_value ) ) {
-		if( 0 < preg_match_all( '/(?:^|[^\\\\])(%([^%]+)%)/U', $t_value, $t_matches ) ) {
-			$t_count = count( $t_matches[0] );
-			for( $i = 0;$i < $t_count;$i++ ) {
-
-				# $t_matches[0][$i] is the matched string including the delimiters
-				# $t_matches[1][$i] is the target parameter string
-				if( $p_global ) {
-					$t_repl = config_get_global( $t_matches[2][$i] );
-				} else {
-					$t_repl = config_get( $t_matches[2][$i] );
-				}
-
-				# Handle the simple case where there is no need to do string replace.
-				# This will resolve the case where the $t_repl value is of non-string
-				# type, e.g. array of access levels.
-				if( $t_count == 1 && $p_value == '%' . $t_matches[2][$i] . '%' ) {
-					$t_value = $t_repl;
-					break;
-				}
-
-				$t_value = str_replace( $t_matches[1][$i], $t_repl, $t_value );
-			}
-		}
-		$t_value = str_replace( '\\%', '%', $t_value );
-	}
-	return $t_value;
 }
 
 /**

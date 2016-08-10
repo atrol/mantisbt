@@ -224,7 +224,7 @@ $g_path	= $t_protocol . '://' . $t_host . $t_path;
  * requires trailing /
  * @global string $g_icon_path
  */
-$g_icon_path = '%path%images/';
+$g_icon_path = $g_path . 'images/';
 
 /**
  * Short web path without the domain name
@@ -867,12 +867,6 @@ $g_favicon_image = 'images/favicon.ico';
  * @global string $g_logo_image
  */
 $g_logo_image = 'images/mantis_logo.png';
-
-/**
- * Logo URL link
- * @global string $g_logo_url
- */
-$g_logo_url = '%default_home_page%';
 
 /**
  * Specifies whether to enable support for project documents or not.
@@ -2626,7 +2620,7 @@ $g_handle_bug_threshold = DEVELOPER;
  * This defaults to $g_handle_bug_threshold
  * @global integer $g_update_bug_assign_threshold
  */
-$g_update_bug_assign_threshold = '%handle_bug_threshold%';
+$g_update_bug_assign_threshold = $g_handle_bug_threshold;
 
 /**
  * access level needed to view private bugnotes
@@ -2784,7 +2778,7 @@ $g_delete_bug_threshold = DEVELOPER;
  * $g_delete_bug_threshold.
  * @global string $g_delete_bugnote_threshold
  */
-$g_delete_bugnote_threshold = '%delete_bug_threshold%';
+$g_delete_bugnote_threshold = $g_delete_bug_threshold;
 
 /**
  * Move bug threshold
@@ -2904,7 +2898,7 @@ $g_set_status_threshold = array( NEW_ => REPORTER );
  * $g_update_bugnote_threshold.
  * @global integer $g_bugnote_user_edit_threshold
  */
-$g_bugnote_user_edit_threshold = '%update_bugnote_threshold%';
+$g_bugnote_user_edit_threshold = $g_update_bugnote_threshold;
 
 /**
  * Threshold at which a user can delete his/her own bugnotes.
@@ -2912,7 +2906,7 @@ $g_bugnote_user_edit_threshold = '%update_bugnote_threshold%';
  * $g_delete_bugnote_threshold.
  * @global integer $g_bugnote_user_delete_threshold
  */
-$g_bugnote_user_delete_threshold = '%delete_bugnote_threshold%';
+$g_bugnote_user_delete_threshold = $g_delete_bugnote_threshold;
 
 /**
  * Threshold at which a user can change the view state of his/her own bugnotes.
@@ -2920,7 +2914,7 @@ $g_bugnote_user_delete_threshold = '%delete_bugnote_threshold%';
  * $g_change_view_status_threshold.
  * @global integer $g_bugnote_user_change_view_state_threshold
  */
-$g_bugnote_user_change_view_state_threshold = '%change_view_status_threshold%';
+$g_bugnote_user_change_view_state_threshold = $g_change_view_status_threshold;
 
 /**
  * Allow a bug to have no category
@@ -3148,43 +3142,43 @@ $g_cookie_prefix = 'MANTIS';
  *
  * @global string $g_string_cookie
  */
-$g_string_cookie = '%cookie_prefix%_STRING_COOKIE';
+$g_string_cookie = $g_cookie_prefix . '_STRING_COOKIE';
 
 /**
  *
  * @global string $g_project_cookie
  */
-$g_project_cookie = '%cookie_prefix%_PROJECT_COOKIE';
+$g_project_cookie = $g_cookie_prefix . '_PROJECT_COOKIE';
 
 /**
  *
  * @global string $g_view_all_cookie
  */
-$g_view_all_cookie = '%cookie_prefix%_VIEW_ALL_COOKIE';
+$g_view_all_cookie = $g_cookie_prefix . '_VIEW_ALL_COOKIE';
 
 /**
  * Stores the filter criteria for the Manage User page
  * @global string $g_manage_users_cookie
  */
-$g_manage_users_cookie		= '%cookie_prefix%_MANAGE_USERS_COOKIE';
+$g_manage_users_cookie		= $g_cookie_prefix . '_MANAGE_USERS_COOKIE';
 
 /**
  * Stores the filter criteria for the Manage Config Report page
  * @global string $g_manage_config_cookie
  */
-$g_manage_config_cookie		= '%cookie_prefix%_MANAGE_CONFIG_COOKIE';
+$g_manage_config_cookie		= $g_cookie_prefix . '_MANAGE_CONFIG_COOKIE';
 
 /**
  *
  * @global string $g_logout_cookie
  */
-$g_logout_cookie = '%cookie_prefix%_LOGOUT_COOKIE';
+$g_logout_cookie = $g_cookie_prefix . '_LOGOUT_COOKIE';
 
 /**
  *
  * @global string $g_bug_list_cookie
  */
-$g_bug_list_cookie = '%cookie_prefix%_BUG_LIST_COOKIE';
+$g_bug_list_cookie = $g_cookie_prefix . '_BUG_LIST_COOKIE';
 
 #############################
 # MantisBT Filter Variables #
@@ -3378,7 +3372,7 @@ $g_use_persistent_connections = OFF;
  * Specify your top/bottom include file (logos, banners, etc)
  * @global string $g_bottom_include_page
  */
-$g_bottom_include_page = '%absolute_path%';
+$g_bottom_include_page = $g_absolute_path;
 
 /**
  * Specify your top/bottom include file (logos, banners, etc). If a top file is
@@ -3392,7 +3386,7 @@ $g_bottom_include_page = '%absolute_path%';
  *
  * @global string $g_top_include_page
  */
-$g_top_include_page = '%absolute_path%';
+$g_top_include_page = $g_absolute_path;
 
 /**
  * CSS file
@@ -3430,6 +3424,14 @@ $g_cdn_enabled = OFF;
  * @global string $g_default_home_page
  */
 $g_default_home_page = 'my_view_page.php';
+
+
+/**
+ * Logo URL link
+ * @global string $g_logo_url
+ */
+$g_logo_url = $g_default_home_page;
+
 
 /**
  * Specify where the user should be sent after logging out.
