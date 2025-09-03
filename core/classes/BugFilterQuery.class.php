@@ -232,13 +232,14 @@ class BugFilterQuery extends DbQuery {
 	}
 
 	/**
-	 * Override DbQuery execute method to check first if the query is already buils and up to date
-	 * with current query parts.
+	 * Override DbQuery execute method to check first if the query is already
+	 * built and up to date with current query parts.
 	 *
 	 * @param array $p_bind_array	Array for binding values
-	 * @param integer $p_limit		Limit value
-	 * @param integer $p_offset		Offset value
-	 * @return IteratorAggregate|boolean ADOdb result set or false if the query failed.
+	 * @param int   $p_limit		Limit value
+	 * @param int   $p_offset		Offset value
+	 *
+	 * @return ADORecordSet|bool ADOdb result set or false if the query failed.
 	 */
 	public function execute( array $p_bind_array = [], $p_limit = null, $p_offset = null ) {
 		if( $this->needs_rebuild ) {
@@ -253,7 +254,7 @@ class BugFilterQuery extends DbQuery {
 	 * executes it and returns the count value.
 	 * This call does not modify current object.
 	 *
-	 * @return integer	Number of issues matched by the filter
+	 * @return int Number of issues matched by the filter
 	 */
 	public function get_bug_count() {
 		# create a copy from current query

@@ -177,9 +177,11 @@ function db_connect( $p_dsn, $p_hostname = null, $p_username = null, $p_password
 }
 
 /**
- * Returns whether a connection to the database exists
- * @global $g_db_connected stores database connection state
- * @return boolean indicating if the a database connection has been made
+ * Returns whether a connection to the database exists.
+ *
+ * @global bool $g_db_connected stores database connection state
+ *
+ * @return bool indicating if the a database connection has been made
  */
 function db_is_connected() {
 	global $g_db_connected;
@@ -311,7 +313,7 @@ function db_query_bound() {
  * @param integer $p_offset    Offset query results for paging.
  * @param boolean $p_pop_param Set to false to leave the parameters on the stack
  *
- * @return IteratorAggregate|boolean adodb result set or false if the query failed.
+ * @return ADORecordSet|false ADOdb result set or false if the query failed.
  */
 function db_query( string $p_query, array $p_params = [], int $p_limit = -1, int $p_offset = -1, bool $p_pop_param = true ) {
 	# Use DbQuery class to execute the query
@@ -352,17 +354,20 @@ function db_param_pop() {
 }
 
 /**
- * Retrieve number of rows returned for a specific database query
- * @param IteratorAggregate $p_result Database Query Record Set to retrieve record count for.
- * @return integer Record Count
+ * Retrieve number of rows returned for a specific database query.
+ *
+ * @param ADORecordSet $p_result Database Query Record Set to retrieve record count for.
+ *
+ * @return int Record Count
  */
-function db_num_rows( IteratorAggregate $p_result ) {
+function db_num_rows( ADORecordSet $p_result ) {
 	return $p_result->RecordCount();
 }
 
 /**
- * Retrieve number of rows affected by a specific database query
- * @return integer Affected Rows
+ * Retrieve number of rows affected by a specific database query.
+ *
+ * @return int Affected Rows
  */
 function db_affected_rows() {
 	global $g_db;
@@ -372,10 +377,10 @@ function db_affected_rows() {
 
 /**
  * Retrieve the next row returned from a specific database query
- * @param IteratorAggregate &$p_result Database Query Record Set to retrieve next result for.
+ * @param ADORecordSet &$p_result Database Query Record Set to retrieve next result for.
  * @return array|false Database result or false if
  */
-function db_fetch_array( IteratorAggregate &$p_result ) {
+function db_fetch_array( ADORecordSet &$p_result ) {
 	global $g_db_functional_type;
 
 	if( $p_result->EOF ) {
@@ -434,10 +439,12 @@ function db_fetch_array( IteratorAggregate &$p_result ) {
 }
 
 /**
- * Retrieve a specific field from a database query result
- * @param boolean|IteratorAggregate $p_result		Database Query Record Set to retrieve the field from.
- * @param integer                   $p_row_index	Row to retrieve, zero-based (optional).
- * @param integer                   $p_col_index	Column to retrieve, zero-based (optional).
+ * Retrieve a specific field from a database query result.
+ *
+ * @param ADORecordSet|false $p_result    Database Query Record Set to retrieve the field from.
+ * @param integer            $p_row_index Row to retrieve, zero-based (optional).
+ * @param integer            $p_col_index Column to retrieve, zero-based (optional).
+ *
  * @return mixed Database result
  */
 function db_result( $p_result, $p_row_index = 0, $p_col_index = 0 ) {
@@ -1234,9 +1241,9 @@ function db_format_query_log_msg( $p_query, array $p_arr_parms ) {
 				$p_query = mb_substr( $p_query, 0, $t_utf8_offset )
 					. $t_replace
 					. mb_substr( $p_query, $t_utf8_offset + mb_strlen( $t_match_param[0] ) );
-				$t_lastoffset = $t_match_param[1] + strlen( $t_replace ) + 1;
+				$t_lastoffset = (int)$t_match_param[1] + strlen( $t_replace ) + 1;
 			} else {
-				$t_lastoffset = $t_match_param[1] + 1;
+				$t_lastoffset = (int)$t_match_param[1] + 1;
 			}
 			$i++;
 		}
