@@ -141,6 +141,10 @@ class IssueFileAddCommand extends Command
 		if( !file_allow_bug_upload( $this->issue->id, $this->reporterId ) ) {
 			throw new ClientException( 'access denied for uploading files', ERROR_ACCESS_DENIED );
 		}
+
+		foreach( $this->files as $t_file ) {
+			file_ensure_uploaded( $t_file );
+		}
 	}
 
 	/**
