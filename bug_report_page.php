@@ -49,6 +49,8 @@
  * @uses string_api.php
  * @uses utility_api.php
  * @uses version_api.php
+ *
+ * @noinspection PhpUnhandledExceptionInspection
  */
 
 require_once( 'core.php' );
@@ -382,12 +384,9 @@ if( $t_show_attachments ) {
 <?php if( $t_show_platform || $t_show_os || $t_show_os_build ) { ?>
 	<tr>
 		<th class="category">
-			<?php
-			if( $t_has_profiles ) echo '<label for="profile_id">';
-			echo lang_get( 'select_profile' );
-			if( $t_has_profiles ) echo '</label>';
-			?>
-
+			<?php if( $t_has_profiles ) { ?>
+			<label for="profile_id"><?php echo lang_get( 'select_profile' ); ?></label>
+			<?php }?>
 		</th>
 		<td>
 			<?php if( $t_has_profiles ) { ?>
