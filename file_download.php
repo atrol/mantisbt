@@ -33,13 +33,17 @@
  * @uses gpc_api.php
  * @uses http_api.php
  * @uses utility_api.php
+ *
+ * @noinspection PhpUnhandledExceptionInspection
+ * @noinspection PhpUnused
  */
 
 # Prevent output of HTML in the content if errors occur
-define( 'DISABLE_INLINE_ERROR_REPORTING', true );
+const DISABLE_INLINE_ERROR_REPORTING = true;
 
-$g_bypass_headers = true; # suppress headers as we will send our own later
-define( 'COMPRESSION_DISABLED', true );
+# Suppress headers as we will send our own later
+$g_bypass_headers = true;
+const COMPRESSION_DISABLED = true;
 
 require_once( 'core.php' );
 require_api( 'access_api.php' );
@@ -55,11 +59,11 @@ require_api( 'utility_api.php' );
 
 auth_ensure_user_authenticated();
 
-$f_show_inline = gpc_get_bool( 'show_inline', false );
+$f_show_inline = gpc_get_bool( 'show_inline' );
 
 # To prevent cross-domain inline hotlinking to attachments we require a CSRF
 # token from the user to show any attachment inline within the browser.
-# Without this security in place a malicious user could upload a HTML file
+# Without this security in place a malicious user could upload an HTML file
 # attachment and direct a user to file_download.php?file_id=X&type=bug&show_inline=1
 # and the malicious HTML content would be rendered in the user's browser,
 # violating cross-domain security.
@@ -137,6 +141,7 @@ switch( $f_type ) {
 }
 
 # throw away output buffer contents (and disable it) to protect download
+/** @noinspection PhpStatementHasEmptyBodyInspection */
 while( @ob_end_clean() ) {
 }
 
