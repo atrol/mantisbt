@@ -55,6 +55,13 @@ class IssueFileGetCommand extends Command {
 	 */
 	function validate() {
 		$this->issue_id = helper_parse_issue_id( $this->query( 'issue_id' ) );
+		$this->user_id = auth_get_current_user_id();
+
+		bug_ensure_exists( $this->issue_id );
+
+		if( !access_has_bug_level( config_get( 'view_bug_threshold' ), $this->issue_id, $this->user_id ) ) {
+			throw new ClientException( 'access denied', ERROR_ACCESS_DENIED );
+		}
 	}
 
 	/**
@@ -64,7 +71,6 @@ class IssueFileGetCommand extends Command {
 	 */
 	protected function process() {
 		$t_issue = bug_get( $this->issue_id, true );
-		$this->user_id = auth_get_current_user_id();
 
 		if( $t_issue->project_id != helper_get_current_project() ) {
 			# in case the current project is not the same project of the bug we are

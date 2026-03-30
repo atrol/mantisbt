@@ -238,6 +238,11 @@ function file_bug_has_attachments( $p_bug_id ) {
  * @internal Should not be used outside of File API.
  */
 function file_can_view_or_download( $p_action, $p_bug_id, $p_uploader_user_id, $p_bugnote_id = null ) {
+	# If user can't view the bug, then they can't access its attachments either
+	if( !access_has_bug_level( config_get( 'view_bug_threshold' ), $p_bug_id ) ) {
+		return false;
+	}
+
 	switch( $p_action ) {
 		case 'view':
 			$t_threshold_global = 'view_attachments_threshold';
