@@ -1178,7 +1178,13 @@ function file_allow_bug_upload( $p_bug_id = null, $p_user_id = null, $p_project_
 	}
 
 	# Check the access level against the config setting
-	return access_has_project_level( config_get( 'upload_bug_file_threshold' ), $t_project_id, $p_user_id );
+	$t_upload_bug_file_threshold = config_get( 'upload_bug_file_threshold' );
+	if( null !== $p_bug_id ) {
+		# Existing issue: if user can't view it, then they can't add attachments
+		return access_has_bug_level( $t_upload_bug_file_threshold, $p_bug_id, $p_user_id );
+	}
+	# New issue - check against project
+	return access_has_project_level( $t_upload_bug_file_threshold, $t_project_id, $p_user_id );
 }
 
 /**
