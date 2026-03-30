@@ -492,11 +492,8 @@ function file_normalize_attachment_path( $p_diskfile, $p_project_id ) {
  */
 function file_get_visible_attachments( $p_bug_id ) {
 	$t_attachment_rows = bug_get_attachments( $p_bug_id );
-	$t_visible_attachments = array();
-
-	$t_attachments_count = count( $t_attachment_rows );
-	if( $t_attachments_count === 0 ) {
-		return $t_visible_attachments;
+	if( count( $t_attachment_rows ) === 0 ) {
+		return [];
 	}
 
 	$t_attachments = array();
