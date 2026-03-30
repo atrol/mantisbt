@@ -113,15 +113,11 @@ if( false === $t_row ) {
  */
 extract( $t_row, EXTR_PREFIX_ALL, 'v' );
 
-if( $f_type == 'bug' ) {
-	$t_project_id = bug_get_field( $v_bug_id, 'project_id' );
-} else {
-	$t_project_id = $v_project_id;
-}
-
 # Check access rights
 switch( $f_type ) {
 	case 'bug':
+		$t_project_id = bug_get_field( $v_bug_id, 'project_id' );
+
 		if( !file_can_download_bug_attachments( $v_bug_id, $v_user_id )
 		|| !file_can_download_bugnote_attachments( $v_bugnote_id, $v_user_id, $v_bug_id )
 		) {
@@ -129,6 +125,8 @@ switch( $f_type ) {
 		}
 		break;
 	case 'doc':
+		$t_project_id = $v_project_id;
+
 		# Check if project documentation feature is enabled.
 		if( OFF == config_get( 'enable_project_documentation' ) ) {
 			access_denied();
