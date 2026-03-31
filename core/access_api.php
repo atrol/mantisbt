@@ -37,6 +37,8 @@
  * @uses project_api.php
  * @uses string_api.php
  * @uses user_api.php
+ *
+ * @noinspection PhpUnitAnnotationToAttributeInspection
  */
 
 require_api( 'authentication_api.php' );

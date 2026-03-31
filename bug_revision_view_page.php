@@ -115,6 +115,7 @@ if( $t_bugnote_id ) {
  * Show Bug revision.
  *
  * @param array $p_revision Bug Revision Data.
+ *
  * @throws ClientException
  */
 function show_revision( array $p_revision ) {
