@@ -495,7 +495,7 @@ function cfdef_input_textarea( array $p_field_def, $p_custom_field_value, $p_req
 			? $p_field_def['length_max']
 			: config_get_global( 'max_textarea_length' ),
 		'"';
-	echo ' cols="70" rows="8">', $p_custom_field_value, '</textarea>';
+	echo ' cols="70" rows="8">', string_textarea( $p_custom_field_value ), '</textarea>';
 }
 
 /**
