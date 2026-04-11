@@ -1196,14 +1196,9 @@ function print_language_option_list( $p_language ) {
  * @return void
  */
 function print_font_option_list( $p_font ) {
-	if ( config_get_global( 'cdn_enabled' ) == ON ) {
-		$t_arr = config_get( 'font_family_choices' );
-	} else {
-		$t_arr = config_get( 'font_family_choices_local' );
-	}
-	$t_enum_count = count( $t_arr );
-	for( $i = 0;$i < $t_enum_count;$i++ ) {
-		$t_font = string_attribute( $t_arr[$i] );
+	$t_font_list = helper_get_font_list();
+	foreach( $t_font_list as $t_key => $t_font ) {
+		$t_font = string_html_specialchars( $t_font );
 		echo '<option value="' . $t_font . '"';
 		check_selected( $t_font, $p_font );
 		echo '>' . $t_font . '</option>';

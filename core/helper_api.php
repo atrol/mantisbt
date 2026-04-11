@@ -997,3 +997,21 @@ function helper_get_root_domain( $p_url ) {
 	}
 	return $t_host; // Return host if nothing matches
 }
+
+/**
+ * Returns the list of available font families.
+ *
+ * The list depends on whether CDN is enabled.
+ * @see $g_font_family_choices
+ * @see $g_font_family_choices_local
+ *
+ * @return array Font list, 0-based index.
+ */
+function helper_get_font_list(): array {
+	$t_config = config_get_global( 'cdn_enabled' ) == ON
+		? 'font_family_choices'
+		: 'font_family_choices_local';
+	$t_font_list = config_get( $t_config );
+
+	return array_values( $t_font_list );
+}
