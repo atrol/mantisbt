@@ -79,14 +79,14 @@ $t_prefs->redirect_delay	= gpc_get_int( 'redirect_delay' );
 $t_prefs->refresh_delay		= gpc_get_int( 'refresh_delay' );
 $t_prefs->default_project	= gpc_get_int( 'default_project' );
 
-$t_lang = gpc_get_string( 'language' );
-if( lang_language_exists( $t_lang ) ) {
-	$t_prefs->language = $t_lang;
+$f_lang = gpc_get_string( 'language' );
+if( lang_language_exists( $f_lang ) ) {
+	$t_prefs->language = $f_lang;
 }
 
-$t_font = gpc_get_string( 'font_family' );
-if( config_get( 'font_family', null, $f_user_id, ALL_PROJECTS ) != $t_font ) {
-	config_set( 'font_family', $t_font, $f_user_id, ALL_PROJECTS );
+$f_font = gpc_get_string( 'font_family' );
+if( config_get( 'font_family', null, $f_user_id, ALL_PROJECTS ) != $f_font ) {
+	config_set( 'font_family', $f_font, $f_user_id, ALL_PROJECTS );
 }
 
 $t_prefs->email_on_new		= gpc_get_bool( 'email_on_new' );
@@ -112,10 +112,10 @@ $t_prefs->bugnote_order = gpc_get_string( 'bugnote_order' );
 $t_prefs->email_bugnote_limit = gpc_get_int( 'email_bugnote_limit' );
 
 # Save user preference with regards to getting full issue details in notifications or not.
-$t_email_full_issue = gpc_get_bool( 'email_full_issue' ) ? 1 : 0;
+$f_email_full_issue = gpc_get_bool( 'email_full_issue' ) ? 1 : 0;
 $t_email_full_config_option = 'email_notifications_verbose';
-if( config_get( $t_email_full_config_option, /* default */ null, $f_user_id, ALL_PROJECTS ) != $t_email_full_issue ) {
-	config_set( $t_email_full_config_option, $t_email_full_issue, $f_user_id, ALL_PROJECTS );
+if( config_get( $t_email_full_config_option, /* default */ null, $f_user_id, ALL_PROJECTS ) != $f_email_full_issue ) {
+	config_set( $t_email_full_config_option, $f_email_full_issue, $f_user_id, ALL_PROJECTS );
 }
 
 # make sure the delay isn't too low
@@ -124,12 +124,12 @@ if( ( config_get( 'min_refresh_delay' ) > $t_prefs->refresh_delay )&&
 	$t_prefs->refresh_delay = config_get( 'min_refresh_delay' );
 }
 
-$t_timezone = gpc_get_string( 'timezone' );
-if( in_array( $t_timezone, timezone_identifiers_list() ) ) {
-	if( $t_timezone == config_get_global( 'default_timezone' ) ) {
+$f_timezone = gpc_get_string( 'timezone' );
+if( in_array( $f_timezone, timezone_identifiers_list() ) ) {
+	if( $f_timezone == config_get_global( 'default_timezone' ) ) {
 		$t_prefs->timezone = '';
 	} else {
-		$t_prefs->timezone = $t_timezone;
+		$t_prefs->timezone = $f_timezone;
 	}
 }
 
