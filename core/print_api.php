@@ -1197,6 +1197,13 @@ function print_language_option_list( $p_language ) {
  */
 function print_font_option_list( $p_font ) {
 	$t_font_list = helper_get_font_list();
+
+	# Append given font to the list if it is not part of it
+	if( !in_array( $p_font, $t_font_list ) ) {
+		$t_font_list[] = $p_font;
+		$p_font = string_html_specialchars( $p_font );
+	}
+
 	foreach( $t_font_list as $t_key => $t_font ) {
 		$t_font = string_html_specialchars( $t_font );
 		echo '<option value="' . $t_font . '"';
