@@ -1368,7 +1368,7 @@ function filter_draw_selection_area() {
 							foreach( $t_stored_queries_arr as $t_query_id => $t_query_name ) {
 								echo '<option value="' . $t_query_id . '" ';
 								check_selected( $t_query_id, $t_source_query_id );
-								echo '>' . string_display_line( $t_query_name ) . '</option>';
+								echo '>' . string_attribute( $t_query_name ) . '</option>';
 							}
 							?>
 						</select>
@@ -1445,7 +1445,7 @@ function filter_draw_selection_area() {
 									foreach( $t_stored_queries_arr as $t_query_id => $t_query_name ) {
 										echo '<option value="' . $t_query_id . '" ';
 										check_selected( $t_query_id, $t_source_query_id );
-										echo '>' . string_display_line( $t_query_name ) . '</option>';
+										echo '>' . string_attribute( $t_query_name ) . '</option>';
 									}
 									?>
 								</select>

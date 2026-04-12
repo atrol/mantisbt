@@ -162,7 +162,7 @@ print_manage_menu( 'manage_user_page.php' );
 							<?php echo lang_get( 'realname_label' ) ?>
 						</td>
 						<td>
-							<?php echo string_display_line( user_get_realname( $t_user_id ) ) ?>
+							<?php echo string_attribute( user_get_realname( $t_user_id ) ) ?>
 						</td>
 <?php
 	} else {
@@ -195,7 +195,7 @@ print_manage_menu( 'manage_user_page.php' );
 							<?php echo lang_get( 'email_label' ) ?>
 						</td>
 						<td>
-							<?php echo string_display_line( user_get_email( $t_user_id ) ) ?>
+							<?php echo string_attribute( user_get_email( $t_user_id ) ) ?>
 						</td>
 <?php
 	} else {

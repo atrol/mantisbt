@@ -318,7 +318,7 @@ function bug_group_action_get_commands( array $p_project_ids = [] ) {
 					$t_custom_field_def = custom_field_get_definition( $t_custom_field_id );
 					$t_command_id = 'custom_field_' . $t_custom_field_id;
 					$t_command_caption = sprintf( lang_get( 'actiongroup_menu_update_field' ), lang_get_defaulted( $t_custom_field_def['name'] ) );
-					$t_commands[$t_command_id] = string_display_line( $t_command_caption );
+					$t_commands[$t_command_id] = string_attribute( $t_command_caption );
 				}
 			}
 		}
