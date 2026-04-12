@@ -107,7 +107,9 @@ function table_print_filter_row( $p_filter_id ) {
 	# Public
 	echo '<td class="center">' . trans_bool( filter_get_field( $p_filter_id, 'is_public' ) ) . '</td>';
 	# Owner
-	echo '<td>' . user_get_name( filter_get_field( $p_filter_id, 'user_id' ) ) . '</td>';
+	echo '<td>'
+		. string_html_specialchars( user_get_name( filter_get_field( $p_filter_id, 'user_id' ) ) )
+		. '</td>';
 	# Actions
 	echo '<td>';
 	echo '<div class="pull-left">';
