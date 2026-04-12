@@ -2529,7 +2529,7 @@ function print_multivalue_field( $p_field_name, $p_field_value ) {
 			if( ( ( $t_current == META_FILTER_ANY ) && ( is_numeric( $t_current ) ) ) || ( is_blank( $t_current ) ) ) {
 				$t_any_found = true;
 			} else {
-				$t_this_string = string_display( $t_current );
+				$t_this_string = string_attribute( $t_current );
 			}
 
 			if( !$t_first_flag ) {

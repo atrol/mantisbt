@@ -226,7 +226,7 @@ function get_capability_row( $p_caption, $p_threshold, $p_all_projects_only = fa
 	echo "<tr>\n";
 
 	# Access levels
-	echo '  <td>', string_display( $p_caption ),
+	echo '  <td>', string_attribute( $p_caption ),
 			'<input type="hidden" name="flag_exists_' . $p_threshold . '[]" value="1" />',
 			"</td>\n";
 	foreach( $g_access_levels as $t_access_level => $t_access_label ) {
