@@ -182,7 +182,7 @@ function print_filter_values_reporter_id( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_name );
+			$t_output .= string_attribute( $t_this_name );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -266,7 +266,7 @@ function print_filter_values_user_monitor( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_name );
+			$t_output .= string_attribute( $t_this_name );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -348,7 +348,7 @@ function print_filter_values_handler_id( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_name );
+			$t_output .= string_attribute( $t_this_name );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -421,7 +421,7 @@ function print_filter_values_show_category( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -586,7 +586,7 @@ function print_filter_values_show_severity( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -645,7 +645,7 @@ function print_filter_values_show_resolution( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -704,7 +704,7 @@ function print_filter_values_show_status( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -763,7 +763,7 @@ function print_filter_values_hide_status( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		$t_hide_status_post = '';
 		if( count( $t_filter[FILTER_PROPERTY_HIDE_STATUS] ) == 1 ) {
@@ -772,7 +772,7 @@ function print_filter_values_hide_status( array $p_filter ) {
 		if( $t_none_found ) {
 			echo lang_get( 'none' );
 		} else {
-			echo $t_output . string_display_line( $t_hide_status_post );
+			echo $t_output . string_attribute( $t_hide_status_post );
 		}
 	}
 }
@@ -829,7 +829,7 @@ function print_filter_values_show_build( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -892,7 +892,7 @@ function print_filter_values_show_version( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -956,7 +956,7 @@ function print_filter_values_show_fixed_in_version( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -1020,7 +1020,7 @@ function print_filter_values_show_target_version( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -1081,7 +1081,7 @@ function print_filter_values_show_priority( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -1142,7 +1142,7 @@ function print_filter_values_show_profile( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -1182,7 +1182,7 @@ function print_filter_show_profile( ?array $p_filter = null ) {
  */
 function print_filter_values_per_page( array $p_filter ) {
 	$t_filter = $p_filter;
-	echo ( $t_filter[FILTER_PROPERTY_ISSUES_PER_PAGE] == 0 ) ? lang_get( 'all' ) : string_display_line( $t_filter[FILTER_PROPERTY_ISSUES_PER_PAGE] );
+	echo ( $t_filter[FILTER_PROPERTY_ISSUES_PER_PAGE] == 0 ) ? lang_get( 'all' ) : string_attribute( $t_filter[FILTER_PROPERTY_ISSUES_PER_PAGE] );
 	echo '<input type="hidden" name="', FILTER_PROPERTY_ISSUES_PER_PAGE, '" value="', string_attribute( $t_filter[FILTER_PROPERTY_ISSUES_PER_PAGE] ), '" />';
 }
 
@@ -1794,7 +1794,7 @@ function print_filter_values_note_user_id( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_name );
+			$t_output .= string_attribute( $t_this_name );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -1857,13 +1857,13 @@ function print_filter_values_plugin_field( array $p_filter, $p_field_name, $p_fi
 				if( filter_field_is_any( $t_value ) ) {
 					echo lang_get( 'any' );
 				} else {
-					echo string_display_line( $t_value );
+					echo string_attribute( $t_value );
 				}
 				echo '<input type="hidden" name="' . string_attribute( $p_field_name ) . '" value="' . string_attribute( $t_value ) . '">';
 				break;
 
 			case FILTER_TYPE_BOOLEAN:
-				echo string_display_line( $p_filter_object->display( (bool)$t_value ) );
+				echo string_attribute( $p_filter_object->display( (bool)$t_value ) );
 				echo '<input type="hidden" name="' . string_attribute( $p_field_name ) . '" value="' . (bool)$t_value . '">';
 				break;
 
@@ -1877,7 +1877,7 @@ function print_filter_values_plugin_field( array $p_filter, $p_field_name, $p_fi
 					if( filter_field_is_any( $t_current ) ) {
 						$t_strings[] = lang_get( 'any' );
 					} else {
-						$t_strings[] = string_display_line( $p_filter_object->display( $t_current ) );
+						$t_strings[] = string_attribute( $p_filter_object->display( $t_current ) );
 					}
 					echo '<input type="hidden" name="' . string_attribute( $p_field_name ) . '[]" value="' . string_attribute( $t_current ) . '">';
 				}
@@ -1938,7 +1938,7 @@ function print_filter_plugin_field( $p_field_name, $p_filter_object, ?array $p_f
 			foreach( $p_filter_object->options() as $t_option_value => $t_option_name ) {
 				echo '<option value="', string_attribute( $t_option_value ), '" ';
 				check_selected( $p_filter[$p_field_name], $t_option_value, false );
-				echo '>', string_display_line( $t_option_name ), '</option>';
+				echo '>', string_attribute( $t_option_name ), '</option>';
 			}
 
 			echo '</select>';
@@ -1953,7 +1953,7 @@ function print_filter_plugin_field( $p_field_name, $p_filter_object, ?array $p_f
 			foreach( $p_filter_object->options() as $t_option_value => $t_option_name ) {
 				echo '<option value="', (int)$t_option_value, '" ';
 				check_selected( $p_filter[$p_field_name], (int)$t_option_value );
-				echo '>', string_display_line( $t_option_name ), '</option>';
+				echo '>', string_attribute( $t_option_name ), '</option>';
 			}
 
 			echo '</select>';
@@ -2371,7 +2371,7 @@ function print_filter_values_project_id( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_name );
+			$t_output .= string_attribute( $t_this_name );
 		}
 		echo $t_output;
 	}
@@ -2430,7 +2430,7 @@ function print_filter_values_projection( array $p_filter ) {
 			} else {
 				$t_first_flag = false;
 			}
-			$t_output .= string_display_line( $t_this_string );
+			$t_output .= string_attribute( $t_this_string );
 		}
 		if( $t_any_found ) {
 			echo lang_get( 'any' );
@@ -2865,7 +2865,7 @@ function filter_form_draw_inputs( $p_filter, $p_for_screen = true, $p_static = f
 	$t_plugin_filters = filter_get_plugin_filters();
 	foreach( $t_plugin_filters as $t_field_name => $t_filter_object ) {
 		$t_colspan = (int)$t_filter_object->colspan;
-		$t_header = $get_field_header( string_attribute( $t_field_name ) . '_filter', string_display_line( $t_filter_object->title ) );
+		$t_header = $get_field_header( string_attribute( $t_field_name ) . '_filter', string_attribute( $t_filter_object->title ) );
 		ob_start();
 		if( $p_static ) {
 			print_filter_plugin_field( $t_field_name, $t_filter_object, $t_filter );

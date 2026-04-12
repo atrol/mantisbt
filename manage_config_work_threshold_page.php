@@ -273,7 +273,7 @@ function get_capability_boolean( $p_caption, $p_threshold, $p_all_projects_only 
 	$t_can_change = access_has_project_level( config_get_access( $p_threshold ), $g_project_id, $g_user )
 			  && ( ( ALL_PROJECTS == $g_project_id ) || !$p_all_projects_only );
 
-	echo "<tr>\n\t<td>", string_display_line( $p_caption ),
+	echo "<tr>\n\t<td>", string_attribute( $p_caption ),
 			'<input type="hidden" name="flag_exists_' . $p_threshold . '[]" value="1" />',
 			"</td>\n";
 
@@ -318,7 +318,7 @@ function get_capability_enum( $p_caption, $p_threshold, $p_enum, $p_all_projects
 			  && ( ( ALL_PROJECTS == $g_project_id ) || !$p_all_projects_only );
 
 	echo '<tr>' . "\n";
-	echo "\t" . '<td>' . string_display_line( $p_caption ) . '</td>' . "\n";
+	echo "\t" . '<td>' . string_attribute( $p_caption ) . '</td>' . "\n";
 
 	# Value
 	$t_color = set_color( $p_threshold, $t_file, $t_global, $t_project, $t_can_change );
@@ -355,7 +355,7 @@ echo '<br />' . "\n";
 if( ALL_PROJECTS == $g_project_id ) {
 	$t_project_title = lang_get( 'config_all_projects' );
 } else {
-	$t_project_title = sprintf( lang_get( 'config_project' ), string_display_line( project_get_name( $g_project_id ) ) );
+	$t_project_title = sprintf( lang_get( 'config_project' ), string_attribute( project_get_name( $g_project_id ) ) );
 }
 
 echo '<div class="col-md-12 col-xs-12">' . "\n";
