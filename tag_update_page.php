@@ -103,7 +103,7 @@ layout_page_begin();
 		<table class="table table-bordered table-condensed table-striped">
 		<fieldset>
 			<input type="hidden" name="tag_id" value="<?php echo $f_tag_id ?>"/>
-			<input type="hidden" name="redirect" value="<?php echo $t_redirect_page ?>"/>
+			<input type="hidden" name="redirect" value="<?php echo string_html_specialchars( $t_redirect_page ) ?>"/>
 			<?php echo form_security_field( 'tag_update' ) ?>
 			<tr>
 				<td class="category">
