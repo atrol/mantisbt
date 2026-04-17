@@ -34,6 +34,8 @@
  * @uses lang_api.php
  * @uses print_api.php
  * @uses utility_api.php
+ *
+ * @noinspection PhpUnhandledExceptionInspection
  */
 
 require_once( 'core.php' );
