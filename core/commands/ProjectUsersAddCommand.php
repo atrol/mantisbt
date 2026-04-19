@@ -119,6 +119,10 @@ class ProjectUsersAddCommand extends Command {
 				config_get( 'project_user_threshold', /* default */ null, $t_actor_id, $this->project_id ),
 				$this->project_id );
 
+		# Cannot grant an access level higher than the user's own
+		$t_actor_access_level = access_get_project_level( $this->project_id, $t_actor_id );
+		$t_access_check = $t_access_check && $this->access_level <= $t_actor_access_level;
+
 		if( !$t_access_check ) {
 			throw new ClientException( "Access Denied", ERROR_ACCESS_DENIED );
 		}
