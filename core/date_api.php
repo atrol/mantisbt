@@ -311,6 +311,7 @@ function print_date_selection_set( $p_name, $p_format, $p_date = 0, $p_default_d
 		$t_date = array( 0, 0, 0, );
 	}
 
+	$t_name = string_html_specialchars( $p_name );
 	$t_disable = $p_default_disable ? 'disabled' : '';
 	$t_blank_line = $p_allow_blank ?'<option value="0"></option>' : '';
 	/** @noinspection HtmlUnknownAttribute */
@@ -322,17 +323,17 @@ function print_date_selection_set( $p_name, $p_format, $p_date = 0, $p_default_d
 	foreach( $t_chars as $t_char ) {
 		switch( $t_char ) {
 			case 'Y':
-				printf( $t_template, $p_name . '_year', helper_get_tab_index() );
+				printf( $t_template, $t_name . '_year', helper_get_tab_index() );
 				print_year_range_option_list( $t_date[0], $p_year_start, $p_year_end );
 				echo "</select>\n";
 				break;
 			case 'M':
-				printf( $t_template, $p_name . '_month', helper_get_tab_index() );
+				printf( $t_template, $t_name . '_month', helper_get_tab_index() );
 				print_month_option_list( $t_date[1] );
 				echo "</select>\n";
 				break;
 			case 'D':
-				printf( $t_template, $p_name . '_day', helper_get_tab_index() );
+				printf( $t_template, $t_name . '_day', helper_get_tab_index() );
 				print_day_option_list( $t_date[2] );
 				echo "</select>\n";
 				break;
