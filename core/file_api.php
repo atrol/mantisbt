@@ -809,7 +809,7 @@ function file_clean_name( $p_filename ) {
  * @param string $p_filepath File path.
  *
  * @return string
- * @throws Exception If no randomness source available.
+ * @throws Exception If no randomness source available (RandomException since PHP 8.2)
  */
 function file_generate_unique_name( $p_filepath ) {
 	do {
@@ -1121,6 +1121,7 @@ function file_is_uploading_enabled() {
  * @param int $p_user_id    A user identifier.
  *
  * @return bool True if user can upload, false otherwise
+ * @throws ClientException
  */
 function file_allow_project_upload( $p_project_id = null, $p_user_id = null ) {
 	if( null === $p_project_id ) {
