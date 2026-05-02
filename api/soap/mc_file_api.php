@@ -24,22 +24,6 @@
  */
 
 /**
- * Check if the current user can download attachments for the specified bug.
- * @param integer $p_bug_id  A bug identifier.
- * @param integer $p_user_id A user identifier.
- * @return boolean
- */
-function mci_file_can_download_bug_attachments( $p_bug_id, $p_user_id ) {
-	$t_can_download = access_has_bug_level( config_get( 'download_attachments_threshold' ), $p_bug_id );
-	if( $t_can_download ) {
-		return true;
-	}
-
-	$t_reported_by_me = bug_is_user_reporter( $p_bug_id, $p_user_id );
-	return( $t_reported_by_me && config_get( 'allow_download_own_attachments' ) );
-}
-
-/**
  * Read a local file and return its content.
  * @param string $p_diskfile Name of file on disk.
  * @return string
@@ -222,6 +206,8 @@ function mci_file_get( $p_file_id, $p_type, $p_user_id ) {
 		$t_project_id = $t_row['project_id'];
 	} else if( $p_type == 'bug' ) {
 		$t_bug_id = $t_row['bug_id'];
+		$t_bugnote_id = $t_row['bugnote_id'];
+		$t_owner_id = $t_row['user_id'];
 		$t_project_id = bug_get_field( $t_bug_id, 'project_id' );
 	}
 
@@ -231,7 +217,9 @@ function mci_file_get( $p_file_id, $p_type, $p_user_id ) {
 	# Check access rights
 	switch( $p_type ) {
 		case 'bug':
-			if( !mci_file_can_download_bug_attachments( $t_bug_id, $p_user_id ) ) {
+			if( !file_can_download_bug_attachments( $t_bug_id, $t_owner_id )
+				|| !file_can_download_bugnote_attachments( $t_bugnote_id, $t_owner_id, $t_bug_id )
+			) {
 				return mci_fault_access_denied( $p_user_id );
 			}
 			break;
