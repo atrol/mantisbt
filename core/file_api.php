@@ -309,7 +309,7 @@ function file_can_view_bugnote_attachments( $p_bugnote_id, $p_uploader_user_id =
 		$t_bug_id = (int)$p_bug_id;
 	}
 
-	return file_can_view_or_download( 'view', $t_bug_id, $p_uploader_user_id );
+	return file_can_view_or_download( 'view', $t_bug_id, $p_uploader_user_id, $p_bugnote_id );
 }
 
 /**
