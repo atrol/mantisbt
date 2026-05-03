@@ -196,6 +196,7 @@ $t_mime_force_inline = array(
 );
 $t_mime_force_attachment = array(
 	'application/x-shockwave-flash',
+	'application/javascript',
 	'image/svg+xml', # SVG could contain CSS or scripting, see #30384
 	'text/html',
 );
@@ -206,8 +207,24 @@ $t_mime_type = $t_mime_type[0];
 
 if( in_array( $t_mime_type, $t_mime_force_inline ) ) {
 	$t_show_inline = true;
-} else if( in_array( $t_mime_type, $t_mime_force_attachment ) ) {
-	$t_show_inline = false;
+
+	# For attachments allowed inline, use the file's actual MIME type as-is
+} else {
+	if( in_array( $t_mime_type, $t_mime_force_attachment ) ) {
+		$t_show_inline = false;
+	}
+
+	# Set Content-Type based on MIME type
+	[$t_type] = explode( '/', $t_mime_type );
+	if( $t_type == 'text' ) {
+		# Ensures we don't interpret HTML, JavaScript, etc.
+		$t_content_type = 'text/plain';
+	} elseif( in_array( $t_type, ['audio', 'video'] ) ) {
+		# No special treatment needed for audio & video
+	} else {
+		# Everything else
+		$t_content_type = 'application/octet-stream';
+	}
 }
 
 http_content_disposition_header( $t_filename, $t_show_inline );
