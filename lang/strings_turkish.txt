@@ -72,6 +72,7 @@
  * @author Sezgin İbiş
  * @author Stonecy
  * @author Thinkfast
+ * @author ToprakM
  * @author Trockya
  * @author Violetanka
  * @author Vito Genovese
@@ -786,7 +787,7 @@ $s_reset_password_msg = 'Parolayı Sıfırlamak, onay URL\'sini e-posta yoluyla 
 $s_reset_password_msg2 = 'Parolayı Sıfırlamak parolanın boş olmasını sıfırlar.';
 $s_email_not_unique = 'E-posta adresi en az bir başka kullanıcı hesabıyla ilişkilidir';
 $s_account_reset_msg = 'Seçilen kullanıcının e-posta adresine bir onay isteği gönderildi. Bunu kullanarak kullanıcı parolayı değiştirebilecektir.';
-$s_account_reset_msg2 = 'Hesap şifresi boş olarak düzenlendi...';
+$s_account_reset_msg2 = 'Hesap parolası boş olarak düzenlendi...';
 $s_account_unlock_msg = 'Hesap kilidi açıldı.';
 $s_manage_user_updated_msg = 'Hesap başarıyla güncellendi...';
 $s_email_user_updated_subject = 'Hesap güncellendi';
