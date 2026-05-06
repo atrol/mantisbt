@@ -309,7 +309,7 @@ function file_can_view_bugnote_attachments( $p_bugnote_id, $p_uploader_user_id =
 		$t_bug_id = (int)$p_bug_id;
 	}
 
-	return file_can_view_or_download( 'view', $t_bug_id, $p_uploader_user_id );
+	return file_can_view_or_download( 'view', $t_bug_id, $p_uploader_user_id, $p_bugnote_id );
 }
 
 /**
@@ -330,15 +330,21 @@ function file_can_download_bug_attachments( $p_bug_id, $p_uploader_user_id = nul
  *
  * @param int $p_bugnote_id       A bugnote identifier.
  * @param int $p_uploader_user_id The user who uploaded the attachment.
+ * @param int $p_bug_id           The bug id; if null (default), will be retrieved
+ *                                from bugnote record.
  *
  * @return bool
  * @throws ClientException
  */
-function file_can_download_bugnote_attachments( $p_bugnote_id, $p_uploader_user_id = null ) {
+function file_can_download_bugnote_attachments( $p_bugnote_id, $p_uploader_user_id = null, $p_bug_id = null ) {
 	if( $p_bugnote_id == 0 ) {
 		return true;
 	}
-	$t_bug_id = bugnote_get_field( $p_bugnote_id, 'bug_id' );
+	if( $p_bug_id === null ) {
+		$t_bug_id = bugnote_get_field( $p_bugnote_id, 'bug_id' );
+	} else {
+		$t_bug_id = (int)$p_bug_id;
+	}
 	return file_can_view_or_download( 'download', $t_bug_id, $p_uploader_user_id, $p_bugnote_id );
 }
 

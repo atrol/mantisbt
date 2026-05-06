@@ -123,7 +123,7 @@ if( $f_type == 'bug' ) {
 switch( $f_type ) {
 	case 'bug':
 		if( !file_can_download_bug_attachments( $v_bug_id, $v_user_id )
-		|| !file_can_download_bugnote_attachments( $v_bugnote_id, $v_user_id )
+		|| !file_can_download_bugnote_attachments( $v_bugnote_id, $v_user_id, $v_bug_id )
 		) {
 			access_denied();
 		}
