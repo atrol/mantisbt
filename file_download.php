@@ -227,6 +227,8 @@ if( in_array( $t_mime_type, $t_mime_force_inline ) ) {
 	}
 }
 
+form_security_purge( 'file_show_inline' );
+
 http_content_disposition_header( $t_filename, $t_show_inline );
 
 header( 'Content-Type: ' . $t_content_type );
