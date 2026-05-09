@@ -975,7 +975,8 @@ function access_can_view_bug_revisions( $p_bug_id, $p_user_id = null ) {
 /**
  * Return true if user is allowed to view bugnote revisions.
  *
- * User must have $g_bug_revision_view_threshold or be the bugnote's reporter.
+ * User must have $g_bug_revision_view_threshold or be the bugnote's reporter,
+ * and have access to the parent bug.
  *
  * @param int $p_bugnote_id
  * @param int $p_user_id
@@ -990,12 +991,22 @@ function access_can_view_bugnote_revisions( $p_bugnote_id, $p_user_id = null ) {
 	$t_project_id = bug_get_field( $t_bug_id, 'project_id' );
 	$t_user_id = null === $p_user_id ? auth_get_current_user_id() : $p_user_id;
 
+	# User must have access to the parent bug
+	$t_has_access = bug_is_user_reporter( $t_bug_id, $t_user_id )
+		|| access_has_bug_level(
+			config_get( 'view_bug_threshold', null, $t_user_id, $t_project_id ),
+			$t_bug_id,
+			$t_user_id
+		);
+	if( !$t_has_access ) {
+		return false;
+	}
+
 	$t_has_access = access_has_bugnote_level(
 		config_get( 'bug_revision_view_threshold', null, $t_user_id, $t_project_id ),
 		$p_bugnote_id,
 		$t_user_id
 	);
-
 
 	return $t_has_access || bugnote_is_user_reporter( $p_bugnote_id, $t_user_id );
 }
