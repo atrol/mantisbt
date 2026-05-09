@@ -226,7 +226,8 @@ if( config_get_global( 'admin_checks' ) == ON ) {
 				echo '<input type="hidden" name="install" value="true" />';
 			}
 
-			# CSRF protection not required here - form does not result in modifications
+			# Generating CSRF token to reduce risk of a vulnerability escalating its impact
+			echo form_security_field( 'login' );
 			?>
 
 			<label for="username" class="block clearfix">

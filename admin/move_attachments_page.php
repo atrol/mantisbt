@@ -167,7 +167,7 @@ if( isset( $t_projects[ALL_PROJECTS] ) ) {
 		}
 
 		echo '<tr>';
-		echo '<td>' . $t_project['name'] . '</td>';
+		echo '<td>' . string_html_specialchars( $t_project['name'] ) . '</td>';
 		echo '<td class="left">' . $t_file_path . '</td>';
 		echo '<td class="center">' . $t_disk_count . '</td>';
 		echo '<td class="center">' . $t_db_count . '</td>';

@@ -284,7 +284,9 @@ if( $t_show_attachments ) {
 		<td>
 			<?php if( $t_changed_project ) {
 				/** @noinspection PhpUndefinedVariableInspection */
-				echo '[' . project_get_field( $t_bug->project_id, 'name' ) . '] ';
+				echo '['
+					. string_html_specialchars( project_get_field( $t_bug->project_id, 'name' ) )
+					. '] ';
 			} ?>
 			<select id="category_id" name="category_id" class="autofocus input-sm" <?php
 				echo helper_get_tab_index();

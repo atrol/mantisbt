@@ -57,6 +57,8 @@ require_api( 'user_api.php' );
 require_api( 'utility_api.php' );
 require_css( 'login.css' );
 
+form_security_validate( 'login' );
+
 $f_error                 = gpc_get_bool( 'error' );
 $f_cookie_error          = gpc_get_bool( 'cookie_error' );
 $f_return                = string_sanitize_url( gpc_get_string( 'return', '' ) );
@@ -219,7 +221,9 @@ if( config_get_global( 'admin_checks' ) == ON && file_exists( __DIR__ .'/admin/.
 
 			echo sprintf( lang_get( 'enter_password' ), string_html_specialchars( $t_username ) );
 
-			# CSRF protection not required here - form does not result in modifications
+			# Generating CSRF token to reduce risk of a vulnerability escalating its impact
+			form_security_purge( 'login' );
+			echo form_security_field( 'login' );
 			?>
 			<input hidden readonly type="text" name="username" class="hidden" tabindex="-1" value="<?php echo string_html_specialchars( $t_username ) ?>" id="hidden_username" />
 			<label for="password" class="block clearfix">

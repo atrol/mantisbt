@@ -14,6 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * @noinspection PhpUnhandledExceptionInspection
+ */
+
 require_api( 'authentication_api.php' );
 require_api( 'bug_api.php' );
 require_api( 'constant_inc.php' );
@@ -53,7 +57,7 @@ class MonitorAddCommand extends Command {
 	/**
 	 * Validate the data.
 	 */
-	function validate() {		
+	function validate() {
 		$t_issue_id = helper_parse_issue_id( $this->query( 'issue_id' ) );
 
 		$this->projectId = bug_get_field( $t_issue_id, 'project_id' );
@@ -78,27 +82,25 @@ class MonitorAddCommand extends Command {
 				throw new ClientException( "anonymous account can't monitor issues", ERROR_PROTECTED_ACCOUNT );
 			}
 
-			if( $t_logged_in_user != $t_user_id ) {
-				$t_access_level = config_get(
+			$t_monitor_bug = config_get( 'monitor_bug_threshold', null, null, $this->projectId );
+
+			if( $t_logged_in_user == $t_user_id ) {
+				if( !access_has_bug_level( $t_monitor_bug, $t_issue_id, $t_user_id ) ) {
+					throw new ClientException( 'access denied', ERROR_ACCESS_DENIED );
+				}
+			} else {
+				if( !access_has_project_level( $t_monitor_bug, $this->projectId, $t_user_id ) ) {
+					throw new ClientException( 'access denied', ERROR_MONITOR_ACCESS_TOO_LOW );
+				}
+
+				$t_monitor_add_others = config_get(
 					'monitor_add_others_bug_threshold',
 					/* default */ null,
 					/* user */ null,
 					$this->projectId );
-
-				if( !access_has_bug_level( $t_access_level, $t_issue_id, $t_logged_in_user ) ) {
+				if( !access_has_bug_level( $t_monitor_add_others, $t_issue_id, $t_logged_in_user ) ) {
 					throw new ClientException( 'access denied', ERROR_ACCESS_DENIED );
 				}
-
-			}
-
-			$t_access_level = config_get(
-				'monitor_bug_threshold',
-				/* default */ null,
-				/* user */ null,
-				$this->projectId );
-
-			if( !access_has_project_level( $t_access_level, $this->projectId, $t_user_id ) ) {
-				throw new ClientException( 'access denied', ERROR_MONITOR_ACCESS_TOO_LOW );
 			}
 
 			$this->userIdsToAdd[] = $t_user_id;

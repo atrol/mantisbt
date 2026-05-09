@@ -303,46 +303,40 @@ function print_year_range_option_list( $p_year = 0, $p_start = 0, $p_end = 0 ) {
  * @access public
  */
 function print_date_selection_set( $p_name, $p_format, $p_date = 0, $p_default_disable = false, $p_allow_blank = false, $p_year_start = 0, $p_year_end = 0, $p_input_css = 'input-sm', $p_required = '' ) {
-	$t_chars = preg_split( '//', $p_format, -1, PREG_SPLIT_NO_EMPTY );
+	# Convert format to uppercase because we don't differentiate d/D, m/M, y/Y
+	$t_chars = preg_split( '//', strtoupper( $p_format ),  -1, PREG_SPLIT_NO_EMPTY );
 	if( $p_date != 0 ) {
 		$t_date = preg_split( '/-/', date( 'Y-m-d', $p_date ), -1, PREG_SPLIT_NO_EMPTY );
 	} else {
 		$t_date = array( 0, 0, 0, );
 	}
 
-	$t_disable = '';
-	if( $p_default_disable == true ) {
-		$t_disable = ' disabled="disabled"';
-	}
-	$t_blank_line = '';
-	if( $p_allow_blank == true ) {
-		$t_blank_line = '<option value="0"></option>';
-	}
+	$t_name = string_html_specialchars( $p_name );
+	$t_disable = $p_default_disable ? 'disabled' : '';
+	$t_blank_line = $p_allow_blank ?'<option value="0"></option>' : '';
+	/** @noinspection HtmlUnknownAttribute */
+	$t_template = <<<HTML
+		<select name="%s" class="$p_input_css" %s $t_disable $p_required>
+		$t_blank_line
+		HTML;
 
 	foreach( $t_chars as $t_char ) {
-		if( strcmp( $t_char, 'M' ) == 0 ) {
-			echo '<select class="' . $p_input_css . '" ' . helper_get_tab_index() . ' name="' . $p_name . '_month"' . $t_disable . $p_required . '>';
-			echo $t_blank_line;
-			print_month_option_list( $t_date[1] );
-			echo '</select>' . "\n";
-		}
-		if( strcmp( $t_char, 'm' ) == 0 ) {
-			echo '<select class="' . $p_input_css . '" ' . helper_get_tab_index() . ' name="' . $p_name . '_month"' . $t_disable . $p_required . '>';
-			echo $t_blank_line;
-			print_month_option_list( $t_date[1] );
-			echo '</select>' . "\n";
-		}
-		if( strcasecmp( $t_char, 'D' ) == 0 ) {
-			echo '<select class="' . $p_input_css . '" ' . helper_get_tab_index() . ' name="' . $p_name . '_day"' . $t_disable . $p_required . '>';
-			echo $t_blank_line;
-			print_day_option_list( $t_date[2] );
-			echo '</select>' . "\n";
-		}
-		if( strcasecmp( $t_char, 'Y' ) == 0 ) {
-			echo '<select class="' . $p_input_css . '" ' .  helper_get_tab_index() . ' name="' . $p_name . '_year"' . $t_disable . $p_required . '>';
-			echo $t_blank_line;
-			print_year_range_option_list( $t_date[0], $p_year_start, $p_year_end );
-			echo '</select>' . "\n";
+		switch( $t_char ) {
+			case 'Y':
+				printf( $t_template, $t_name . '_year', helper_get_tab_index() );
+				print_year_range_option_list( $t_date[0], $p_year_start, $p_year_end );
+				echo "</select>\n";
+				break;
+			case 'M':
+				printf( $t_template, $t_name . '_month', helper_get_tab_index() );
+				print_month_option_list( $t_date[1] );
+				echo "</select>\n";
+				break;
+			case 'D':
+				printf( $t_template, $t_name . '_day', helper_get_tab_index() );
+				print_day_option_list( $t_date[2] );
+				echo "</select>\n";
+				break;
 		}
 	}
 }

@@ -79,7 +79,9 @@ switch( $f_action ) {
 		$f_description	= gpc_get_string( 'description' );
 		$t_user_id		= gpc_get_int( 'user_id' );
 
-		if( ALL_USERS != $t_user_id ) {
+		if( ALL_USERS == $t_user_id ) {
+			access_ensure_global_level( config_get( 'manage_global_profile_threshold' ) );
+		} else {
 			$t_user_id = auth_get_current_user_id();
 			access_ensure_global_level( config_get( 'add_profile_threshold' ), $t_user_id );
 		}

@@ -311,6 +311,7 @@ function layout_head_css() {
  */
 function layout_user_font_preference() {
 	$t_font_family = config_get( 'font_family', null, null, ALL_PROJECTS );
+	$t_font_family = string_html_specialchars( $t_font_family );
 	echo '<style>', "\n";
 	echo  '* { font-family: "' . $t_font_family . '"; } ', "\n";
 	echo  'h1, h2, h3, h4, h5 { font-family: "' . $t_font_family . '"; } ', "\n";
