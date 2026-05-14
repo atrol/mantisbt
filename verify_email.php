@@ -97,7 +97,7 @@ layout_login_page_begin( $t_form_title );
 		<div id="verify-div" class="form-container">
 			<form id="account-update-form" method="post" action="account_update.php">
 				<legend>
-					<span><?php echo $t_form_title . ' - ' . string_display_line( $u_username ) ?></span>
+					<span><?php echo $t_form_title . ' - ' . string_attribute( $u_username ) ?></span>
 				</legend>
 
 				<div id="reset-passwd-msg" class="alert alert-sm alert-warning ">
