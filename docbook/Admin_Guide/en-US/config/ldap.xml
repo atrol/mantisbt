@@ -98,10 +98,6 @@ ldaps://ldap.example.com:3269/
 				<para>Defaults to <literal>OFF</literal>
 					(protocol version not set).
 				</para>
-
-				<note>
-					<para>Requires PHP 7.1 or later.</para>
-				</note>
 				<warning>
 					<para>For security, a failure aborts the entire connection.
 					</para>
